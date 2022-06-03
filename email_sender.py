@@ -8,15 +8,15 @@ from string import Template
 # reikia pasiimti reikiamus duomenys is kito failo
 
 with open('email_message.html', 'r') as email_message:
-    html_messagae = email_message.read()
+    html_message = email_message.read()
 
-html_template = Template(html_messagae)
+html_template = Template(html_message)
 
 email = EmailMessage()
 email['from'] = sender_email
 email['to'] = 'polujarek@gmail.com' # pakeisti i receiveremail
-email['subject'] = 'Dar vienssas Testinis emailas is pycharmo' # Pakeisti i subject
-email.set_content(html_template.substitute({'name': 'Jaroslav'}), 'html_message') #  Pakeicia reiksmes html_message . Galima arba zodyna, arba per lygu
+email['subject'] = 'Paskutinis testas16,41' # Pakeisti i subject
+email.set_content(html_template.substitute({'name': 'Jaroslav'}), 'html') #  Pakeicia reiksmes . Galima arba zodyna, arba per lygu
 
 context = ssl.create_default_context()  # Create a secure SSL context
 
