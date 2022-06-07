@@ -1,5 +1,5 @@
 """
-Cron (run automaticaly every day)
+Cron (run automatically every day)
 Send emails to everyone except person who celebrates one week before birthday
 1. Validate persons birthday data file, handle errors
      A person's entry in the file will contain:
@@ -39,7 +39,7 @@ def start_app():
         match command:
             case '1':  # Validate persons data file, returns data if it's valid
                 print(
-                    'Program will validate persons data file. File should be in JSON format.')  # Or add .json in the end?
+                    'Program will validate persons data file. File should be in JSON format.')
                 path_to_file = input('Please enter path and file name: \n')
                 data = parse_data(path_to_file)  # Returns data if it's valid, or None
                 continue
@@ -83,6 +83,7 @@ def start_app():
             case _:  # Incorrect input
                 print('Incorrect input, please try again!')
                 continue
+
 
 if __name__ == '__main__':
     start_app()
