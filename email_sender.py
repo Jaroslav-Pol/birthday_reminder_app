@@ -5,12 +5,15 @@ from email_settings import sender_email, sender_password, sender_host
 from string import Template
 from datetime import datetime, timedelta
 import time
+from tenacity import retry, wait_fixed, stop_after_attempt
 
 """
 Please create email_settings.py with your sender email, password and host
 """
 
 
+@retry(wait=wait_fixed(10), stop=stop_after_attempt(3))
+# If exception raises it will wait 10sec and try again, 3 times max
 def send_emails(data, birthday_list):
     """Sending emails to every person except celebrant.
     to send emails - uncomment 'server.send_message(email)'
