@@ -1,6 +1,8 @@
 """
+Birthday reminder app
+Tasks:
 Cron (run automatically every day)
-Send emails to everyone except person who celebrates one week before birthday
+
 1. Validate persons birthday data file, handle errors
      A person's entry in the file will contain:
         1.the person's name,
@@ -13,9 +15,10 @@ Send emails to everyone except person who celebrates one week before birthday
     •each person's birthdate is a valid date (eg. no 02-30 or 01-32) in the PAST.
 
 2. Check for upcoming birthdays and send emails if there are any.
+    Send emails to everyone except person who celebrates one week before birthday
     1.the emails can always be sent successfully in 3 retries,
     2.emails are sent instantly (there is no need to send the emails asynchronously),
-    3.the email template is hardcoded.
+    3.the email template is hardcoded.C
 
 Exit once emails are sent.
 Interface CLI
