@@ -6,9 +6,8 @@ error_list = []
 
 
 def parse_data(path_to_file, birthday_check=False):
-    """Checking if data parsing is ok, if yes, sending data for validation
-    or we need to return it better?
-    if birthday_check, we are not checking data, only opening file and send it back"""
+    """Parsing data, if ok, sending it for validation. Returns data if it's validated.
+    if birthday_check - not validating data, only parsing file and returns it"""
     try:
         with open(path_to_file) as json_file:
             data = json.load(json_file)
@@ -22,24 +21,22 @@ def parse_data(path_to_file, birthday_check=False):
         time.sleep(2)
 
         if type(data) == dict:
+            # Checking is data from json file is dict with table name, if so, converts it to list with dict values
             data = data['persons']
-            # Checking is data from json file is dict with table name, if so, converts it to list only with dict values
         if birthday_check:
+            # Returning data without checking it
             return data
         else:
             validate_person_data(data)
-            # if we return bad data? is it ok?
+            #  Sending data for validation
             if not error_list:
                 # If there is no errors
-                return data  # ??? ar reikia
-            else:
-                return
-                # pass #  ka cia reikia? a1r reikia?
+                return data
 
 
 def validate_person_data(data):
-    """Validates for empty elements in data, if it's ok, then checking date and email"""
-    error_list.clear()
+    """Validates for empty elements in data, if ok  - checks date and email"""
+    error_list.clear()  # If there was previous validations, clears error list
     for person in data:
         if bool(person['name'].strip()) and bool(person['email'].strip() and bool(person['birthdate'].strip())):
             # Checks if there is no empty items
@@ -50,15 +47,16 @@ def validate_person_data(data):
         else:
             print(f'There is a person with empty data: {person}\n----------')
             error_list.append(person['name'])
-    if len(error_list) > 0:
-        print(f'Found {len(error_list)} errors with data, please check!')  # Maybe add names from error list?
+
+    if error_list:
+        # If there are some errors
+        print(f'Found {len(error_list)} errors with data, please check!')
     else:
-        print('Data is OK!')
-        #  return ??
+        print('Data is valid!')
 
 
 def validate_email(person):
-    """Simple email validator, check's if @ or . is in string"""
+    """Simple email validator, checks if '@' or '.' is in string"""
     if '@' not in person['email'] or '.' not in person['email']:
         print(f'Person {person["name"]} email is not correct, please check it!\n----------')
         error_list.append(person['name'])
@@ -73,6 +71,7 @@ def validate_birthdate(person):
         # If date format is YYYY-MM-DD
         try:
             birthday_date = datetime.strptime(person['birthdate'], '%Y-%m-%d')
+            #  Try to make date object from string, if succeed - date is valid
             if birthday_date > datetime.now():
                 #  Checks if date is in past
                 print(f'Person {person["name"]} is not born yet!\n----------')
@@ -88,11 +87,13 @@ def validate_birthdate(person):
             pass
         else:
             try:
-                birthday_date = datetime.strptime(person['birthdate'], '%m-%d')  ## gal cia reikia pasalinti kintamaji?
+                datetime.strptime(person['birthdate'], '%m-%d')
+                #  Try to make date object from string, if succeed - date is valid
+
             except ValueError:
                 print(error_message)
                 error_list.append(person['name'])
 
     else:
         print(error_message)
-        error_list.append('+')
+        error_list.append(person['name'])
