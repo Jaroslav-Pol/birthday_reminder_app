@@ -24,7 +24,7 @@ def send_emails(data, birthday_list):
         try:
             with smtplib.SMTP(host=sender_host, port=587) as server:
                 server.ehlo()  # Hi server!
-                server.set_debuglevel(1)  # If set to 1 it will display all messages and errors
+                server.set_debuglevel(0)  # If set to 1 it will display all messages and errors
                 server.starttls(context=context)  # Creating secure channel
                 server.login(sender_email, sender_password)
 
@@ -54,3 +54,6 @@ def send_emails(data, birthday_list):
             retry += 1
             time.sleep(10)
             continue
+
+        else:
+            break
