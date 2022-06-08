@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Jaroslav",
+    "email": "jaroslav.polujanskij@gmail.com",
+    "birthdate": "02-29"
+  },
+  {
+    "name": "Jenny ",
+    "email": "jenny@company.com",
+    "birthdate": "2010-06-14"
+  },
+    {
+    "name": "Mark",
+    "email": "mark@company.com",
+    "birthdate": "1990-06-15"
+  }
+]
